@@ -1759,32 +1759,37 @@
         </member>
         <member name="P:Huobi.Net.Objects.HuobiCurrencyWithdrawQuota.MaxWithdrawAmt">
             <summary>
-            The max number of crypto asset to withdraw per request
+            Maximum withdraw amount in each request
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiCurrencyWithdrawQuota.remainWithdrawQuotaPerDay">
+        <member name="P:Huobi.Net.Objects.HuobiCurrencyWithdrawQuota.WithdrawQuotaPerDay">
             <summary>
-            The number of crypto asset transfered in its minimum unit
+            Maximum withdraw amount in a day
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiCurrencyWithdrawQuota.withdrawQuotaPerYear">
+        <member name="P:Huobi.Net.Objects.HuobiCurrencyWithdrawQuota.RemainWithdrawQuotaPerDay">
             <summary>
-            The number of crypto asset transfered in its minimum unit
+            Remaining withdraw quota in the day
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiCurrencyWithdrawQuota.remainWithdrawQuotaPerYear">
+        <member name="P:Huobi.Net.Objects.HuobiCurrencyWithdrawQuota.WithdrawQuotaPerYear">
             <summary>
-            The number of crypto asset transfered in its minimum unit
+            Maximum withdraw amount in a year
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiCurrencyWithdrawQuota.withdrawQuotaTotal">
+        <member name="P:Huobi.Net.Objects.HuobiCurrencyWithdrawQuota.RemainWithdrawQuotaPerYear">
             <summary>
-            The number of crypto asset transfered in its minimum unit
+            Remaining withdraw quota in the year
             </summary>
         </member>
-        <member name="P:Huobi.Net.Objects.HuobiCurrencyWithdrawQuota.remainWithdrawQuotaTotal">
+        <member name="P:Huobi.Net.Objects.HuobiCurrencyWithdrawQuota.WithdrawQuotaTotal">
             <summary>
-            The number of crypto asset transfered in its minimum unit
+            Maximum withdraw amount in total
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiCurrencyWithdrawQuota.RemainWithdrawQuotaTotal">
+            <summary>
+            Remaining withdraw quota in total
             </summary>
         </member>
         <member name="T:Huobi.Net.Objects.HuobiDepositAddress">
