@@ -381,5 +381,13 @@ namespace Huobi.Net.Interfaces
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<WithdrawDeposit>>> GetWithdrawDepositAsync(WithdrawDepositType type, string? currency = null, int? from = null, int? size = null, HuobiFilterDirection? direction = null, CancellationToken ct = default);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="currency"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        Task<WebCallResult<HuobiWithdrawQuota>> GetWithdrawQuotaAsync(string currency,
+            CancellationToken ct = default);
     }
 }

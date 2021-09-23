@@ -616,6 +616,14 @@
             <param name="ct"></param>
             <returns></returns>
         </member>
+        <member name="M:Huobi.Net.HuobiClient.GetWithdrawQuotaAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="currency"></param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
         <member name="M:Huobi.Net.HuobiClient.ConstructRequest(System.Uri,System.Net.Http.HttpMethod,System.Collections.Generic.Dictionary{System.String,System.Object},System.Boolean,CryptoExchange.Net.Objects.HttpMethodParameterPosition,CryptoExchange.Net.Objects.ArrayParametersSerialization,System.Int32,System.Collections.Generic.Dictionary{System.String,System.String})">
             <inheritdoc />
         </member>
@@ -1270,6 +1278,14 @@
             <param name="ct"></param>
             <returns></returns>
         </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetWithdrawQuotaAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="currency"></param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
         <member name="T:Huobi.Net.Interfaces.IHuobiSocketClient">
             <summary>
             Interface for the Huobi socket client
@@ -1729,6 +1745,46 @@
         <member name="P:Huobi.Net.Objects.HuobiChain.WithdrawStatus">
             <summary>
             Withdraw status
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.HuobiCurrencyWithdrawQuota">
+            <summary>
+            Single Currency Withdraw Quote
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiCurrencyWithdrawQuota.Chain">
+            <summary>
+            Block chain name
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiCurrencyWithdrawQuota.MaxWithdrawAmt">
+            <summary>
+            The max number of crypto asset to withdraw per request
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiCurrencyWithdrawQuota.remainWithdrawQuotaPerDay">
+            <summary>
+            The number of crypto asset transfered in its minimum unit
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiCurrencyWithdrawQuota.withdrawQuotaPerYear">
+            <summary>
+            The number of crypto asset transfered in its minimum unit
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiCurrencyWithdrawQuota.remainWithdrawQuotaPerYear">
+            <summary>
+            The number of crypto asset transfered in its minimum unit
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiCurrencyWithdrawQuota.withdrawQuotaTotal">
+            <summary>
+            The number of crypto asset transfered in its minimum unit
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiCurrencyWithdrawQuota.remainWithdrawQuotaTotal">
+            <summary>
+            The number of crypto asset transfered in its minimum unit
             </summary>
         </member>
         <member name="T:Huobi.Net.Objects.HuobiDepositAddress">
@@ -3089,6 +3145,21 @@
         <member name="P:Huobi.Net.Objects.HuobiTransactionResult.TransactionTime">
             <summary>
             Time
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.HuobiWithdrawQuota">
+            <summary>
+            Withdraw Quota
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiWithdrawQuota.Currency">
+            <summary>
+            The currency
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiWithdrawQuota.Chains">
+            <summary>
+            Chains
             </summary>
         </member>
         <member name="P:Huobi.Net.Objects.SocketObjects.HuobiSocketResponse`1.Timestamp">

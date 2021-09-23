@@ -69,6 +69,7 @@ namespace Huobi.Net
         private const string QueryDepositAddressEndpoint = "account/deposit/address";
         private const string PlaceWithdrawEndpoint = "dw/withdraw/api/create";
         private const string QueryWithdrawDepositEndpoint = "query/deposit-withdraw";
+        private const string QueryWithdrawQuotaEndpoint = "account/withdraw/quota";
 
         /// <summary>
         /// Whether public requests should be signed if ApiCredentials are provided. Needed for accurate rate limiting.
@@ -122,7 +123,7 @@ namespace Huobi.Net
         {
             SetAuthenticationProvider(new HuobiAuthenticationProvider(new ApiCredentials(apiKey, apiSecret), SignPublicRequests));
         }
-        
+
         /// <summary>
         /// Gets the latest ticker for all symbols
         /// </summary>
@@ -558,7 +559,7 @@ namespace Huobi.Net
             };
 
             parameters.AddOptionalParameter("client-order-id", clientOrderId);
-            parameters.AddOptionalParameter("source", source == null? null: JsonConvert.SerializeObject(source, new SourceTypeConverter(false)));
+            parameters.AddOptionalParameter("source", source == null ? null : JsonConvert.SerializeObject(source, new SourceTypeConverter(false)));
             parameters.AddOptionalParameter("stop-price", stopPrice);
             parameters.AddOptionalParameter("operator", stopOperator == null ? null : JsonConvert.SerializeObject(stopOperator, new OperatorConverter(false)));
 
@@ -834,7 +835,7 @@ namespace Huobi.Net
             parameters.AddOptionalParameter("addr-tag", addressTag);
             return await SendHuobiRequest<long>(GetUrl(PlaceWithdrawEndpoint, "1"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
-       
+
         /// <summary>
         /// Parent user and sub user searche for all existed withdraws and deposits and return their latest status.
         /// </summary>
@@ -858,7 +859,23 @@ namespace Huobi.Net
             parameters.AddOptionalParameter("direct", direction == null ? null : JsonConvert.SerializeObject(direction, new FilterDirectionConverter(false)));
             return await SendHuobiRequest<IEnumerable<WithdrawDeposit>>(GetUrl(QueryWithdrawDepositEndpoint, "1"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
-        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="currency"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        public async Task<WebCallResult<HuobiWithdrawQuota>> GetWithdrawQuotaAsync(string currency, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>
+            {
+                { "currency", currency  },
+            };
+
+            return await SendHuobiV2Request<HuobiWithdrawQuota>(GetUrl(QueryWithdrawQuotaEndpoint, "2"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+        }
+
         private async Task<WebCallResult<T>> SendHuobiV2Request<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, Dictionary<string, object>? parameters = null, bool signed = false, bool checkResult = true)
         {
             var result = await SendRequestAsync<HuobiApiResponseV2<T>>(uri, method, cancellationToken, parameters, signed, checkResult).ConfigureAwait(false);
