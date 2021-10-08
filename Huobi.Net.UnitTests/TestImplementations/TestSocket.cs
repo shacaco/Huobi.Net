@@ -35,6 +35,7 @@ namespace Huobi.Net.UnitTests.TestImplementations
         public Encoding Encoding { get; set; }
         public int? RatelimitPerSecond { get; set; }
         public string LastSendMessage { get; set; }
+        public double IncomingKbps => 0;
         public Task<bool> ConnectAsync()
         {
             Connected = CanConnect;
@@ -86,6 +87,11 @@ namespace Huobi.Net.UnitTests.TestImplementations
         public void InvokeMessage<T>(T data)
         {
             OnMessage?.Invoke(JsonConvert.SerializeObject(data));
+        }
+
+        public void InvokeError(Exception error)
+        {
+            OnError?.Invoke(error);
         }
     }
 }

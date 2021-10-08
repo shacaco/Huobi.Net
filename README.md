@@ -95,6 +95,23 @@ For the basic client options see also the CryptoExchange.Net [docs](https://gith
 |`BaseAddressAuthenticated`|The base address for authenticated subscriptions|`wss://api.huobi.pro/ws/v2`
 
 ## Release notes
+* Version 3.2.2 - 06 Oct 2021
+    * Updated CryptoExchange.Net, fixing socket issue when calling from .Net Framework
+    * Fixed issue in HuobiSymbolOrderBook syncing
+
+* Version 3.2.1 - 05 Oct 2021
+    * Fixed incorrect sanity check in SubscribeToOrderUpdatesAsync
+
+* Version 3.2.0 - 29 Sep 2021
+    * Added missing AccountTypes
+    * Renamed Amount to Quantity in parameters and properties
+    * Implemented Market-By-Price streams
+    * Updated CryptoExchange.Net
+
+* Version 3.1.0 - 20 Sep 2021
+    * Added missing SetApiCredentials method
+    * Updated CryptoExchange.Net
+
 * Version 3.0.5 - 15 Sep 2021
     * Updated CryptoExchange.Net
 
