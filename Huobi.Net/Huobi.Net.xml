@@ -3129,7 +3129,7 @@
             The base address for the authenticated websocket
             </summary>
         </member>
-        <member name="P:Huobi.Net.HuobiSocketClientOptions.BaseAddressInrementalOrderBook">
+        <member name="P:Huobi.Net.HuobiSocketClientOptions.BaseAddressIncrementalOrderBook">
             <summary>
             The base address for the market by price websocket
             </summary>
