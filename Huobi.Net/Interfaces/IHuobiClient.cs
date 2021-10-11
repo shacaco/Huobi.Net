@@ -131,6 +131,14 @@ namespace Huobi.Net.Interfaces
         Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default);
 
         /// <summary>
+        /// Gets the user fees
+        /// </summary>
+        /// <param name="symbol></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<HuobiSymbolFees>>> GetUserFees(string symbol, CancellationToken ct = default);
+
+        /// <summary>
         /// Gets a list of accounts associated with the apikey/secret
         /// </summary>
         /// <param name="ct">Cancellation token</param>
@@ -170,7 +178,7 @@ namespace Huobi.Net.Interfaces
         /// <returns></returns>
         Task<WebCallResult<HuobiTransactionResult>> TransferAssetAsync(long fromUserId, HuobiAccountType fromAccountType, long fromAccountId,
             long toUserId, HuobiAccountType toAccountType, long toAccountId, string currency, decimal quantity, CancellationToken ct = default);
-                
+
         /// <summary>
         /// Gets a list of amount changes of specified user's account
         /// </summary>
@@ -184,7 +192,7 @@ namespace Huobi.Net.Interfaces
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<HuobiAccountHistory>>> GetAccountHistoryAsync(long accountId, string? currency = null, IEnumerable<HuobiTransactionType>? transactionTypes = null, DateTime? startTime = null, DateTime? endTime = null, HuobiSortingType? sort = null, int? size = null, CancellationToken ct = default);
-               
+
         /// <summary>
         /// This endpoint returns the amount changes of specified user's account.
         /// </summary>

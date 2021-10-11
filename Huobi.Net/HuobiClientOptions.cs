@@ -82,7 +82,7 @@ namespace Huobi.Net
         /// <summary>
         /// The base address for the market by price websocket
         /// </summary>
-        public string BaseAddressInrementalOrderBook { get; set; } = "wss://api.huobi.pro/feed";
+        public string BaseAddressIncrementalOrderBook { get; set; } = "wss://api.huobi.pro/feed";
 
         /// <summary>
         /// ctor
@@ -108,7 +108,7 @@ namespace Huobi.Net
         public HuobiSocketClientOptions(string baseWebsocketAddress, string mbpWebsocketAddress, string authWebsocketAddress) : base(baseWebsocketAddress)
         {
             BaseAddressAuthenticated = authWebsocketAddress;
-            BaseAddressInrementalOrderBook = mbpWebsocketAddress;
+            BaseAddressIncrementalOrderBook = mbpWebsocketAddress;
             SocketSubscriptionsCombineTarget = 10;
         }
 
@@ -120,7 +120,7 @@ namespace Huobi.Net
         {
             var copy = Copy<HuobiSocketClientOptions>();
             copy.BaseAddressAuthenticated = BaseAddressAuthenticated;
-            copy.BaseAddressInrementalOrderBook = BaseAddressInrementalOrderBook;
+            copy.BaseAddressIncrementalOrderBook = BaseAddressIncrementalOrderBook;
             return copy;
         }
     }

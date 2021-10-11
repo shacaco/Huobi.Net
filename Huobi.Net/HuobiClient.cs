@@ -43,6 +43,7 @@ namespace Huobi.Net
         private const string CommonCurrenciesEndpoint = "common/currencys";
         private const string CommonCurrenciesAndChainsEndpoint = "reference/currencies";
         private const string ServerTimeEndpoint = "common/timestamp";
+        private const string UserFeesEndpoint = "reference/transact-fee-rate";
 
         private const string GetAccountsEndpoint = "account/accounts";
         private const string GetAssetValuationEndpoint = "account/asset-valuation";
@@ -348,6 +349,23 @@ namespace Huobi.Net
                 return WebCallResult<DateTime>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
             var time = (DateTime)JsonConvert.DeserializeObject(result.Data, typeof(DateTime), new TimestampConverter())!;
             return result.As(time);
+        }
+
+        /// <summary>
+        /// Gets the user Fees
+        /// </summary>
+        /// <param name="symbol"></param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        public async Task<WebCallResult<IEnumerable<HuobiSymbolFees>>> GetUserFees(string symbol, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>()
+            {
+                { "symbols", symbol}
+            };
+
+
+            return await SendHuobiV2Request<IEnumerable<HuobiSymbolFees>>(GetUrl(UserFeesEndpoint, "2"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>

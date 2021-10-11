@@ -32,7 +32,7 @@ namespace Huobi.Net
         private static HuobiSocketClientOptions DefaultOptions => defaultOptions.Copy();
 
         private readonly string baseAddressAuthenticated;
-        private readonly string baseAddressMbp;
+        private readonly string baseAddressIncrementalOrderBook;
         #endregion
 
         #region ctor
@@ -50,7 +50,7 @@ namespace Huobi.Net
         public HuobiSocketClient(HuobiSocketClientOptions options) : base("Huobi", options, options.ApiCredentials == null ? null : new HuobiAuthenticationProvider(options.ApiCredentials, false))
         {
             baseAddressAuthenticated = options.BaseAddressAuthenticated;
-            baseAddressMbp = options.BaseAddressInrementalOrderBook;
+            baseAddressIncrementalOrderBook = options.BaseAddressIncrementalOrderBook;
 
             SetDataInterpreter(DecompressData, null);
             AddGenericHandler("PingV1", PingHandlerV1);
@@ -139,7 +139,7 @@ namespace Huobi.Net
             levels.ValidateIntValues(nameof(levels), 5, 20, 150, 400);
 
             var request = new HuobiSocketRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.mbp.{levels}");
-            var result = await QueryAsync<HuobiSocketResponse<HuobiIncementalOrderBook>>(baseAddressMbp, request, false).ConfigureAwait(false);
+            var result = await QueryAsync<HuobiSocketResponse<HuobiIncementalOrderBook>>(baseAddressIncrementalOrderBook, request, false).ConfigureAwait(false);
             if (!result)
                 return new CallResult<HuobiIncementalOrderBook>(null, result.Error);
 
@@ -195,7 +195,7 @@ namespace Huobi.Net
             });
 
             var request = new HuobiSubscribeRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.mbp.refresh.{levels}");
-            return await SubscribeAsync(baseAddressMbp, request, null, false, internalHandler).ConfigureAwait(false);
+            return await SubscribeAsync(BaseAddress, request, null, false, internalHandler).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -217,7 +217,7 @@ namespace Huobi.Net
             });
 
             var request = new HuobiSubscribeRequest(NextId().ToString(CultureInfo.InvariantCulture), $"market.{symbol}.mbp.{levels}");
-            return await SubscribeAsync(baseAddressMbp, request, null, false, internalHandler).ConfigureAwait(false);
+            return await SubscribeAsync(baseAddressIncrementalOrderBook, request, null, false, internalHandler).ConfigureAwait(false);
         }
 
         /// <summary>
