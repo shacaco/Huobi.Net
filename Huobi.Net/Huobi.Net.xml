@@ -474,6 +474,21 @@
             the next order id that can be cancelled
             </summary>
         </member>
+        <member name="T:Huobi.Net.Objects.HuobiCancelOrdersAfterResult">
+            <summary>
+            Cancel after result
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiCancelOrdersAfterResult.CurrentTime">
+            <summary>
+            Current time
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiCancelOrdersAfterResult.TriggerTime">
+            <summary>
+            Trigger time
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Objects.HuobiCurrencyInfo">
             <summary>
             Info on a currency
@@ -2074,6 +2089,36 @@
             Time
             </summary>
         </member>
+        <member name="T:Huobi.Net.Objects.HuobiWithdrawAddress">
+            <summary>
+            Withdraw address info
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiWithdrawAddress.Currency">
+            <summary>
+            Crypto currency
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiWithdrawAddress.Address">
+            <summary>
+            Withdraw address
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiWithdrawAddress.AddressTag">
+            <summary>
+            Withdraw address tag
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiWithdrawAddress.Chain">
+            <summary>
+            Block chain name
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiWithdrawAddress.Note">
+            <summary>
+            Withdraw address note
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Objects.HuobiWithdrawQuota">
             <summary>
             Withdraw Quota
@@ -2877,6 +2922,16 @@
             <param name="ct">Cancellation token</param>
             <returns>Unique transfer id</returns>
         </member>
+        <member name="M:Huobi.Net.HuobiClient.CancelAllOrdersAfterAsync(System.TimeSpan,System.Threading.CancellationToken)">
+            <summary>
+            The Dead man’s switch protects the user’s assets when the connection to the exchange is lost due to network or system errors.
+            Turn on/off the Dead man’s switch. If the Dead man’s switch is turned on and the API call isn’t sent twice within the set time, 
+            the platform will cancel all of your orders on the spot market（a maximum cancellation of 500 orders）
+            </summary>
+            <param name="timeout"></param>
+            <param name="ct">Cancellation token</param>      
+            <returns></returns>
+        </member>
         <member name="M:Huobi.Net.HuobiClient.PlaceOrderAsync(System.Int64,System.String,Huobi.Net.Objects.HuobiOrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Nullable{Huobi.Net.Enums.SourceType},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.Operator},System.Threading.CancellationToken)">
             <summary>
             Places an order
@@ -3009,6 +3064,14 @@
         <member name="M:Huobi.Net.HuobiClient.GetDepositAddressesAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Parent user and sub user could query deposit address of corresponding chain, for a specific crypto currency (except IOTA).
+            </summary>
+            <param name="currency">Crypto currency</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetWithdrawAddressesAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            This endpoint allows parent user to query withdraw address available for API key.
             </summary>
             <param name="currency">Crypto currency</param>
             <param name="ct">Cancellation token</param>
@@ -3618,6 +3681,16 @@
             <param name="ct">Cancellation token</param>
             <returns>Unique transfer id</returns>
         </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.CancelAllOrdersAfterAsync(System.TimeSpan,System.Threading.CancellationToken)">
+            <summary>
+            The Dead man’s switch protects the user’s assets when the connection to the exchange is lost due to network or system errors.
+            Turn on/off the Dead man’s switch. If the Dead man’s switch is turned on and the API call isn’t sent twice within the set time, 
+            the platform will cancel all of your orders on the spot market（a maximum cancellation of 500 orders）
+            </summary>
+            <param name="timeout"></param>
+            <param name="ct">Cancellation token</param>      
+            <returns></returns>
+        </member>
         <member name="M:Huobi.Net.Interfaces.IHuobiClient.PlaceOrderAsync(System.Int64,System.String,Huobi.Net.Objects.HuobiOrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Nullable{Huobi.Net.Enums.SourceType},System.Nullable{System.Decimal},System.Nullable{Huobi.Net.Enums.Operator},System.Threading.CancellationToken)">
             <summary>
             Places an order
@@ -3750,6 +3823,14 @@
         <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetDepositAddressesAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Parent user and sub user could query deposit address of corresponding chain, for a specific crypto currency (except IOTA).
+            </summary>
+            <param name="currency">Crypto currency</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetWithdrawAddressesAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            This endpoint allows parent user to query withdraw address available for API key.
             </summary>
             <param name="currency">Crypto currency</param>
             <param name="ct">Cancellation token</param>

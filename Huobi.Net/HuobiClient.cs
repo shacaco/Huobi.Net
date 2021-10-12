@@ -53,6 +53,8 @@ namespace Huobi.Net
 
         private const string GetSubAccountBalancesEndpoint = "account/accounts/{}";
         private const string TransferWithSubAccountEndpoint = "subuser/transfer";
+       
+        private const string DeadMansSwitchEndpoint = "algo-orders/cancel-all-after";
 
         private const string PlaceOrderEndpoint = "order/orders/place";
         private const string OpenOrdersEndpoint = "order/openOrders";
@@ -68,6 +70,7 @@ namespace Huobi.Net
         private const string HistoryOrdersEndpoint = "order/history";
 
         private const string QueryDepositAddressEndpoint = "account/deposit/address";
+        private const string QueryWithdrawAddressEndpoint = "account/withdraw/address";
         private const string PlaceWithdrawEndpoint = "dw/withdraw/api/create";
         private const string QueryWithdrawDepositEndpoint = "query/deposit-withdraw";
         private const string QueryWithdrawQuotaEndpoint = "account/withdraw/quota";
@@ -549,6 +552,24 @@ namespace Huobi.Net
         }
 
         /// <summary>
+        /// The Dead man’s switch protects the user’s assets when the connection to the exchange is lost due to network or system errors.
+        /// Turn on/off the Dead man’s switch. If the Dead man’s switch is turned on and the API call isn’t sent twice within the set time, 
+        /// the platform will cancel all of your orders on the spot market（a maximum cancellation of 500 orders）
+        /// </summary>
+        /// <param name="timeout"></param>
+        /// <param name="ct">Cancellation token</param>      
+        /// <returns></returns>
+        public async Task<WebCallResult<HuobiCancelOrdersAfterResult>> CancelAllOrdersAfterAsync(TimeSpan timeout, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>
+            {
+                { "timeout", (int)timeout.TotalSeconds }
+            };
+
+            return await SendHuobiV2Request<HuobiCancelOrdersAfterResult>(GetUrl(DeadMansSwitchEndpoint, "2"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        /// <summary>
         /// Places an order
         /// </summary>
         /// <param name="accountId">The account to place the order for</param>
@@ -826,6 +847,18 @@ namespace Huobi.Net
         {
             var parameters = new Dictionary<string, object>() { { "currency", currency } };
             return await SendHuobiV2Request<IEnumerable<HuobiDepositAddress>>(GetUrl(QueryDepositAddressEndpoint, "2"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// This endpoint allows parent user to query withdraw address available for API key.
+        /// </summary>
+        /// <param name="currency">Crypto currency</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        public async Task<WebCallResult<IEnumerable<HuobiWithdrawAddress>>> GetWithdrawAddressesAsync(string currency, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>() { { "currency", currency } };
+            return await SendHuobiV2Request<IEnumerable<HuobiWithdrawAddress>>(GetUrl(QueryWithdrawAddressEndpoint, "2"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>

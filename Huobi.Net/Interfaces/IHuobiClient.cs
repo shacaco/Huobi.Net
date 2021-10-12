@@ -228,6 +228,16 @@ namespace Huobi.Net.Interfaces
         Task<WebCallResult<long>> TransferWithSubAccountAsync(long subAccountId, string currency, decimal quantity, HuobiTransferType transferType, CancellationToken ct = default);
 
         /// <summary>
+        /// The Dead man’s switch protects the user’s assets when the connection to the exchange is lost due to network or system errors.
+        /// Turn on/off the Dead man’s switch. If the Dead man’s switch is turned on and the API call isn’t sent twice within the set time, 
+        /// the platform will cancel all of your orders on the spot market（a maximum cancellation of 500 orders）
+        /// </summary>
+        /// <param name="timeout"></param>
+        /// <param name="ct">Cancellation token</param>      
+        /// <returns></returns>
+        Task<WebCallResult<HuobiCancelOrdersAfterResult>> CancelAllOrdersAfterAsync(TimeSpan timeout, CancellationToken ct = default);
+       
+        /// <summary>
         /// Places an order
         /// </summary>
         /// <param name="accountId">The account to place the order for</param>
@@ -363,6 +373,14 @@ namespace Huobi.Net.Interfaces
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<IEnumerable<HuobiDepositAddress>>> GetDepositAddressesAsync(string currency, CancellationToken ct = default);
+
+        /// <summary>
+        /// This endpoint allows parent user to query withdraw address available for API key.
+        /// </summary>
+        /// <param name="currency">Crypto currency</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<HuobiWithdrawAddress>>> GetWithdrawAddressesAsync(string currency, CancellationToken ct = default);
 
         /// <summary>
         /// Parent user creates a withdraw request from spot account to an external address (exists in your withdraw address list), which doesn't require two-factor-authentication.
