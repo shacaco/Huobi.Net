@@ -27,6 +27,13 @@ namespace Huobi.Net.Interfaces
         void SetApiCredentials(string apiKey, string apiSecret);
 
         /// <summary>
+        /// Gets the user ID
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<long?>> GetUIDAsync(CancellationToken ct = default);
+
+        /// <summary>
         /// Gets the latest ticker for all symbols
         /// </summary>
         /// <param name="ct">Cancellation token</param>

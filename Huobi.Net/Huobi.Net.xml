@@ -2722,6 +2722,13 @@
             <param name="apiKey">The api key</param>
             <param name="apiSecret">The api secret</param>
         </member>
+        <member name="M:Huobi.Net.HuobiClient.GetUIDAsync(System.Threading.CancellationToken)">
+            <summary>
+            Gets the user ID
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
         <member name="M:Huobi.Net.HuobiClient.GetTickersAsync(System.Threading.CancellationToken)">
             <summary>
             Gets the latest ticker for all symbols
@@ -3487,6 +3494,13 @@
             </summary>
             <param name="apiKey">The api key</param>
             <param name="apiSecret">The api secret</param>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetUIDAsync(System.Threading.CancellationToken)">
+            <summary>
+            Gets the user ID
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
         </member>
         <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetTickersAsync(System.Threading.CancellationToken)">
             <summary>

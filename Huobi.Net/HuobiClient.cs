@@ -29,6 +29,8 @@ namespace Huobi.Net
         private static HuobiClientOptions defaultOptions = new HuobiClientOptions();
         private static HuobiClientOptions DefaultOptions => defaultOptions.Copy();
 
+        private const string UserIDEndpoint = "user/uid";
+    
         private const string MarketTickerEndpoint = "market/tickers";
         private const string MarketTickerMergedEndpoint = "market/detail/merged";
         private const string MarketKlineEndpoint = "market/history/kline";
@@ -126,6 +128,16 @@ namespace Huobi.Net
         public void SetApiCredentials(string apiKey, string apiSecret)
         {
             SetAuthenticationProvider(new HuobiAuthenticationProvider(new ApiCredentials(apiKey, apiSecret), SignPublicRequests));
+        }
+
+        /// <summary>
+        /// Gets the user ID
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        public async Task<WebCallResult<long?>> GetUIDAsync(CancellationToken ct = default)
+        {
+            return await SendHuobiV2Request<long?>(GetUrl(UserIDEndpoint, "2"), HttpMethod.Get, ct, null, true).ConfigureAwait(false);
         }
 
         /// <summary>
