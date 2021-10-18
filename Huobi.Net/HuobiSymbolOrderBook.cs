@@ -5,6 +5,7 @@ using CryptoExchange.Net.OrderBook;
 using CryptoExchange.Net.Sockets;
 using Huobi.Net.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace Huobi.Net
 {
@@ -17,6 +18,10 @@ namespace Huobi.Net
         private readonly int? mergeStep;
         private int? _levels;
         private bool _socketOwner;
+        private static readonly HashSet<string> _supportedRealtimeSymbols = new HashSet<string>
+        {
+            "btcusdt", "ethusdt", "xrpusdt", "eosusdt", "ltcusdt", "etcusdt", "adausdt", "dashusdt", "bsvusdt"
+        };
 
         /// <summary>
         /// Create a new order book instance
@@ -54,7 +59,7 @@ namespace Huobi.Net
 
                 return setResult ? subResult : new CallResult<UpdateSubscription>(null, setResult.Error);
             }
-            else
+            else if(_supportedRealtimeSymbols.Contains(Symbol))
             {
                 var subResult = await socketClient.SubscribeToOrderBookChangeUpdatesAsync(Symbol, _levels!.Value, HandleIncremental).ConfigureAwait(false);
                 if (!subResult)
@@ -72,7 +77,20 @@ namespace Huobi.Net
 
                 SetInitialOrderBook(book.Data.SequenceNumber, book.Data.Bids, book.Data.Asks);
                 return subResult;
-            }            
+            }
+            else
+            {
+                var subResult = await socketClient.SubscribeToPartialOrderBookUpdates100MilisecondAsync(Symbol, _levels!.Value, HandleUpdate).ConfigureAwait(false);
+                if (!subResult)
+                    return subResult;
+
+                Status = OrderBookStatus.Syncing;
+                var setResult = await WaitForSetOrderBookAsync(10000).ConfigureAwait(false);
+                if (!setResult)
+                    await subResult.Data.CloseAsync().ConfigureAwait(false);
+
+                return setResult ? subResult : new CallResult<UpdateSubscription>(null, setResult.Error);
+            }
         }
 
         private void HandleIncremental(DataEvent<HuobiIncementalOrderBook> book)
