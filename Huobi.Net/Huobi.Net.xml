@@ -609,6 +609,11 @@
             Withdraw quota in total
             </summary>
         </member>
+        <member name="P:Huobi.Net.Objects.HuobiChain.TransactFeeRateWithdraw">
+            <summary>
+            Withdraw fee in each request (only applicable to withdrawFeeType = ratio)
+            </summary>
+        </member>
         <member name="P:Huobi.Net.Objects.HuobiChain.WithdrawStatus">
             <summary>
             Withdraw status
@@ -2918,6 +2923,24 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
+        <member name="M:Huobi.Net.HuobiClient.TransferAssetFromCrossMarginToSpotAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Transfer asset from CrossMargin to Spot account
+            </summary>
+            <param name="currency">The asset to transfer</param>
+            <param name="quantity">quantity to transfer</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.TransferAssetFromSpotToCrossMarginAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Transfer asset from Spot to CrossMargin account
+            </summary>
+            <param name="currency">The asset to transfer</param>
+            <param name="quantity">quantity to transfer</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
         <member name="M:Huobi.Net.HuobiClient.TransferWithSubAccountAsync(System.Int64,System.String,System.Decimal,Huobi.Net.Objects.HuobiTransferType,System.Threading.CancellationToken)">
             <summary>
             Transfer asset between parent and sub account
@@ -3514,6 +3537,24 @@
             Gets the ticker, including the best bid / best ask for a symbol
             </summary>
             <param name="symbol">The symbol to get the ticker for</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.TransferAssetFromCrossMarginToSpotAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Transfer asset from CrossMargin to Spot account
+            </summary>
+            <param name="currency">The asset to transfer</param>
+            <param name="quantity">quantity to transfer</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.TransferAssetFromSpotToCrossMarginAsync(System.String,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Transfer asset from Spot to CrossMargin account
+            </summary>
+            <param name="currency">The asset to transfer</param>
+            <param name="quantity">quantity to transfer</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>

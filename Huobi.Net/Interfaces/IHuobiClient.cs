@@ -49,6 +49,24 @@ namespace Huobi.Net.Interfaces
         Task<WebCallResult<HuobiSymbolTickMerged>> GetMergedTickerAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
+        /// Transfer asset from CrossMargin to Spot account
+        /// </summary>
+        /// <param name="currency">The asset to transfer</param>
+        /// <param name="quantity">quantity to transfer</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<int>> TransferAssetFromCrossMarginToSpotAsync(string currency, decimal quantity, CancellationToken ct = default);
+
+        /// <summary>
+        /// Transfer asset from Spot to CrossMargin account
+        /// </summary>
+        /// <param name="currency">The asset to transfer</param>
+        /// <param name="quantity">quantity to transfer</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<int>> TransferAssetFromSpotToCrossMarginAsync(string currency, decimal quantity, CancellationToken ct = default);
+
+        /// <summary>
         /// Get candlestick data for a symbol
         /// </summary>
         /// <param name="symbol">The symbol to get the data for</param>

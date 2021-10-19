@@ -113,6 +113,11 @@ namespace Huobi.Net.Objects
         public decimal? WithdrawQuotaTotal { get; set; }
 
         /// <summary>
+        /// Withdraw fee in each request (only applicable to withdrawFeeType = ratio)
+        /// </summary>
+        public decimal TransactFeeRateWithdraw { get; set; }
+
+        /// <summary>
         /// Withdraw status
         /// </summary>
         public CurrencyStatus WithdrawStatus { get; set; }

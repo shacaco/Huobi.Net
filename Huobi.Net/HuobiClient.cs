@@ -77,6 +77,9 @@ namespace Huobi.Net
         private const string QueryWithdrawDepositEndpoint = "query/deposit-withdraw";
         private const string QueryWithdrawQuotaEndpoint = "account/withdraw/quota";
 
+        private const string TransferAssetFromCrossMarginToSpotEndpoint = "cross-margin/transfer-out";
+        private const string TransferAssetFromSpotToCrossMarginEndpoint = "cross-margin/transfer-in";
+
         /// <summary>
         /// Whether public requests should be signed if ApiCredentials are provided. Needed for accurate rate limiting.
         /// </summary>
@@ -538,6 +541,44 @@ namespace Huobi.Net
                 return WebCallResult<IEnumerable<HuobiBalance>>.CreateErrorResult(result.ResponseStatusCode, result.ResponseHeaders, result.Error!);
 
             return result.As(result.Data.First().Data);
+        }
+
+        /// <summary>
+        /// Transfer asset from CrossMargin to Spot account
+        /// </summary>
+        /// <param name="currency">The asset to transfer</param>
+        /// <param name="quantity">quantity to transfer</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        public async Task<WebCallResult<int>> TransferAssetFromCrossMarginToSpotAsync(string currency, decimal quantity, CancellationToken ct = default)
+        {
+            currency.ValidateNotNull(nameof(currency));
+            var parameters = new Dictionary<string, object>
+            {
+                { "currency", currency },
+                { "amount", quantity },
+            };
+
+            return await SendHuobiRequest<int>(GetUrl(TransferAssetFromCrossMarginToSpotEndpoint, "1"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Transfer asset from Spot to CrossMargin account
+        /// </summary>
+        /// <param name="currency">The asset to transfer</param>
+        /// <param name="quantity">quantity to transfer</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        public async Task<WebCallResult<int>> TransferAssetFromSpotToCrossMarginAsync(string currency, decimal quantity, CancellationToken ct = default)
+        {
+            currency.ValidateNotNull(nameof(currency));
+            var parameters = new Dictionary<string, object>
+            {
+                { "currency", currency },
+                { "amount", quantity },
+            };
+
+            return await SendHuobiRequest<int>(GetUrl(TransferAssetFromSpotToCrossMarginEndpoint, "1"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1237,6 +1278,7 @@ namespace Huobi.Net
 
             throw new ArgumentException("Unsupported timespan for Huobi Klines, check supported intervals using Huobi.Net.Objects.HuobiPeriod");
         }
+     
         #endregion
     }
 }
