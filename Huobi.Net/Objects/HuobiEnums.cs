@@ -147,7 +147,15 @@
         /// <summary>
         /// Interest balance
         /// </summary>
-        Interest
+        Interest,
+        /// <summary>
+        /// Transfer out available
+        /// </summary>
+        TransferOutAvailable,
+        /// <summary>
+        /// Loan available
+        /// </summary>
+        LoanAvailable
     }
 
     /// <summary>
@@ -458,6 +466,30 @@
         /// Deduction completed
         /// </summary>
         Done,
+
+    }
+
+    /// <summary>
+    /// The state of a loan order
+    /// </summary>
+    public enum HuobiLoanState
+    {
+        /// <summary>
+        /// Created
+        /// </summary>
+       Created,
+       /// <summary>
+       /// Loaned
+       /// </summary>
+       Accrual,
+       /// <summary>
+       /// Paid
+       /// </summary>
+       Cleared,
+       /// <summary>
+       /// Invalid
+       /// </summary>
+       Invalid
 
     }
 }

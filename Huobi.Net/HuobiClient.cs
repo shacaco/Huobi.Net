@@ -30,7 +30,7 @@ namespace Huobi.Net
         private static HuobiClientOptions DefaultOptions => defaultOptions.Copy();
 
         private const string UserIDEndpoint = "user/uid";
-    
+
         private const string MarketTickerEndpoint = "market/tickers";
         private const string MarketTickerMergedEndpoint = "market/detail/merged";
         private const string MarketKlineEndpoint = "market/history/kline";
@@ -55,7 +55,7 @@ namespace Huobi.Net
 
         private const string GetSubAccountBalancesEndpoint = "account/accounts/{}";
         private const string TransferWithSubAccountEndpoint = "subuser/transfer";
-       
+
         private const string DeadMansSwitchEndpoint = "algo-orders/cancel-all-after";
 
         private const string PlaceOrderEndpoint = "order/orders/place";
@@ -79,6 +79,11 @@ namespace Huobi.Net
 
         private const string TransferAssetFromCrossMarginToSpotEndpoint = "cross-margin/transfer-out";
         private const string TransferAssetFromSpotToCrossMarginEndpoint = "cross-margin/transfer-in";
+        private const string LoanRequestCrossMarginEndpoint = "cross-margin/orders";
+        private const string LoanRepayCrossMarginEndpoint = "cross-margin/orders/{}/repay";
+        private const string PastLoansCrossMarginEndpoint = "cross-margin/loan-orders";
+        private const string LoansInterestRatesCrossMarginEndpoint = "cross-margin/loan-info";
+        private const string AccountBalanceCrossMarginEndpoint = "cross-margin/accounts/balance";
 
         /// <summary>
         /// Whether public requests should be signed if ApiCredentials are provided. Needed for accurate rate limiting.
@@ -579,6 +584,75 @@ namespace Huobi.Net
             };
 
             return await SendHuobiRequest<int>(GetUrl(TransferAssetFromSpotToCrossMarginEndpoint, "1"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get a cross account loan
+        /// </summary>
+        /// <param name="currency">The asset to loan</param>
+        /// <param name="quantity">quantity to loan</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        public async Task<WebCallResult<int?>> RequestCrossAccountLoan(string currency, decimal quantity, CancellationToken ct = default)
+        {
+            currency.ValidateNotNull(nameof(currency));
+            var parameters = new Dictionary<string, object>
+            {
+                { "currency", currency },
+                { "amount", quantity },
+            };
+
+            return await SendHuobiRequest<int?>(GetUrl(LoanRequestCrossMarginEndpoint, "1"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Repay a cross account loan
+        /// </summary>
+        /// <param name="orderId">loan id</param>
+        /// <param name="quantity">quantity to repay</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        public async Task<WebCallResult<object>> RepayCrossAccountLoan(string orderId, decimal quantity, CancellationToken ct = default)
+        {
+            orderId.ValidateNotNull(nameof(orderId));
+            var parameters = new Dictionary<string, object>
+            {
+                { "amount", quantity },
+            };
+           return await SendHuobiRequest<object>(GetUrl(FillPathParameter(LoanRepayCrossMarginEndpoint, orderId.ToString(CultureInfo.InvariantCulture)), "1"), HttpMethod.Post, ct, parameters, signed: true).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get cross account interest rates
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        public async Task<WebCallResult<IEnumerable<HuobiLoanInterestRates>>> GetCrossAccountLoanInterestRates(CancellationToken ct = default)
+        {
+            return await SendHuobiRequest<IEnumerable<HuobiLoanInterestRates>>(GetUrl(LoansInterestRatesCrossMarginEndpoint, "1"), HttpMethod.Get, ct, null, true).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get cross account past loans
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        public async Task<WebCallResult<IEnumerable<HuobiLoanOrder>>> GetCrossAccountPastLoans(CancellationToken ct = default) 
+        {
+            return await SendHuobiRequest<IEnumerable<HuobiLoanOrder>>(GetUrl(PastLoansCrossMarginEndpoint, "1"), HttpMethod.Get, ct, null, true).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get cross margin account balance
+        /// </summary>
+        /// <param name="subUid">If not specified, returns account balance of current logged in user</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        public async Task<WebCallResult<HuobiMarginAccountBalance>> GetCrossMarginAccountBalance(long? subUid = null, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>();
+            parameters.AddOptionalParameter("sub-uid", subUid);
+            return await SendHuobiRequest<HuobiMarginAccountBalance>(GetUrl(AccountBalanceCrossMarginEndpoint, "1"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1278,7 +1352,7 @@ namespace Huobi.Net
 
             throw new ArgumentException("Unsupported timespan for Huobi Klines, check supported intervals using Huobi.Net.Objects.HuobiPeriod");
         }
-     
+
         #endregion
     }
 }

@@ -854,6 +854,16 @@
             Interest balance
             </summary>
         </member>
+        <member name="F:Huobi.Net.Objects.HuobiBalanceType.TransferOutAvailable">
+            <summary>
+            Transfer out available
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Objects.HuobiBalanceType.LoanAvailable">
+            <summary>
+            Loan available
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Objects.HuobiOrderRole">
             <summary>
             Order role
@@ -1209,6 +1219,31 @@
             Deduction completed
             </summary>
         </member>
+        <member name="T:Huobi.Net.Objects.HuobiLoanState">
+            <summary>
+            The state of a loan order
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Objects.HuobiLoanState.Created">
+            <summary>
+            Created
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Objects.HuobiLoanState.Accrual">
+            <summary>
+            Loaned
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Objects.HuobiLoanState.Cleared">
+            <summary>
+            Paid
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Objects.HuobiLoanState.Invalid">
+            <summary>
+            Invalid
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Objects.HuobiLedgerEntry">
             <summary>
             Ledger entry
@@ -1257,6 +1292,141 @@
         <member name="P:Huobi.Net.Objects.HuobiLedgerEntry.Transferee">
             <summary>
             Transferee
+            </summary>
+        </member>
+        <member name="T:Huobi.Net.Objects.HuobiLoanInterestRates">
+            <summary>
+            loan rates for the currency
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiLoanInterestRates.Currency">
+            <summary>
+            Currency
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiLoanInterestRates.InterestRate">
+            <summary>
+            Basic daily interest rate
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiLoanInterestRates.MinLoanAmount">
+            <summary>
+            Minimal loanable amount
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiLoanInterestRates.MaxLoanAmount">
+            <summary>
+            Maximum loanable amount
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiLoanInterestRates.LoanableAmount">
+            <summary>
+            Remaining loanable amount
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiLoanInterestRates.ActualRate">
+            <summary>
+            Actual interest rate post deduction (if deduction is inapplicable or disabled, return basic daily interest rate)
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiLoanOrder.Id">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiLoanOrder.AccountId">
+            <summary>
+            Account id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiLoanOrder.UserId">
+            <summary>
+            User id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiLoanOrder.Currency">
+            <summary>
+            The currency in the loan
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiLoanOrder.FilledPoints">
+            <summary>
+            Point deduction amount
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiLoanOrder.FilledHT">
+            <summary>
+            HT deduction amount
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiLoanOrder.Accrued">
+            <summary>
+            The timestamp in milliseconds when the last accure happened
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiLoanOrder.Created">
+            <summary>
+            The timestamp when the order was created
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiLoanOrder.LoanAmount">
+            <summary>
+            The amount of the origin loan
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiLoanOrder.LoanBalance">
+            <summary>
+            The amount of the loan left
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiLoanOrder.InterestAmount">
+            <summary>
+            The accumulated loan interest
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiLoanOrder.InterestBalance">
+            <summary>
+            The amount of loan interest left
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiLoanOrder.State">
+            <summary>
+            Actual interest rate post deduction (if deduction is inapplicable or disabled, return basic daily interest rate)
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarginAccountBalance.Id">
+            <summary>
+            Account Id
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarginAccountBalance.Type">
+            <summary>
+            Account type
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarginAccountBalance.State">
+            <summary>
+            account state: working, fl-sys, fl-end, fl-negative
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarginAccountBalance.RiskRate">
+            <summary>
+            Risk rate
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarginAccountBalance.TotalAccountBalance">
+            <summary>
+            total account balance
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarginAccountBalance.TotalAccountDebt">
+            <summary>
+            total account debt
+            </summary>
+        </member>
+        <member name="F:Huobi.Net.Objects.HuobiMarginAccountBalance.List">
+            <summary>
+            Balance items
             </summary>
         </member>
         <member name="T:Huobi.Net.Objects.HuobiMarketStatus">
@@ -2941,6 +3111,46 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
+        <member name="M:Huobi.Net.HuobiClient.RequestCrossAccountLoan(System.String,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Get a cross account loan
+            </summary>
+            <param name="currency">The asset to loan</param>
+            <param name="quantity">quantity to loan</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.RepayCrossAccountLoan(System.String,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Repay a cross account loan
+            </summary>
+            <param name="orderId">loan id</param>
+            <param name="quantity">quantity to repay</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetCrossAccountLoanInterestRates(System.Threading.CancellationToken)">
+            <summary>
+            Get cross account interest rates
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetCrossAccountPastLoans(System.Threading.CancellationToken)">
+            <summary>
+            Get cross account past loans
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.HuobiClient.GetCrossMarginAccountBalance(System.Nullable{System.Int64},System.Threading.CancellationToken)">
+            <summary>
+            Get cross margin account balance
+            </summary>
+            <param name="subUid">If not specified, returns account balance of current logged in user</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
         <member name="M:Huobi.Net.HuobiClient.TransferWithSubAccountAsync(System.Int64,System.String,System.Decimal,Huobi.Net.Objects.HuobiTransferType,System.Threading.CancellationToken)">
             <summary>
             Transfer asset between parent and sub account
@@ -3555,6 +3765,46 @@
             </summary>
             <param name="currency">The asset to transfer</param>
             <param name="quantity">quantity to transfer</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.RequestCrossAccountLoan(System.String,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            request a cross account loan
+            </summary>
+            <param name="currency">The asset to loan</param>
+            <param name="quantity">quantity to loan</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.RepayCrossAccountLoan(System.String,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Repay a cross account loan
+            </summary>
+            <param name="orderId">loan id</param>
+            <param name="quantity">quantity to repay</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetCrossAccountLoanInterestRates(System.Threading.CancellationToken)">
+            <summary>
+            Get cross account loan interest rates
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetCrossAccountPastLoans(System.Threading.CancellationToken)">
+            <summary>
+            Get cross account past loans
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.GetCrossMarginAccountBalance(System.Nullable{System.Int64},System.Threading.CancellationToken)">
+            <summary>
+            Get cross margin account balance
+            </summary>
+            <param name="subUid">If not specified, returns account balance of current logged in user</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>

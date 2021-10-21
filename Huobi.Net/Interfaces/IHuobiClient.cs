@@ -67,6 +67,46 @@ namespace Huobi.Net.Interfaces
         Task<WebCallResult<int>> TransferAssetFromSpotToCrossMarginAsync(string currency, decimal quantity, CancellationToken ct = default);
 
         /// <summary>
+        /// request a cross account loan
+        /// </summary>
+        /// <param name="currency">The asset to loan</param>
+        /// <param name="quantity">quantity to loan</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<int?>> RequestCrossAccountLoan(string currency, decimal quantity, CancellationToken ct = default);
+
+        /// <summary>
+        /// Repay a cross account loan
+        /// </summary>
+        /// <param name="orderId">loan id</param>
+        /// <param name="quantity">quantity to repay</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<object>> RepayCrossAccountLoan(string orderId, decimal quantity, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get cross account loan interest rates
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<HuobiLoanInterestRates>>> GetCrossAccountLoanInterestRates(CancellationToken ct = default);
+
+        /// <summary>
+        /// Get cross account past loans
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<HuobiLoanOrder>>> GetCrossAccountPastLoans(CancellationToken ct = default);
+
+        /// <summary>
+        /// Get cross margin account balance
+        /// </summary>
+        /// <param name="subUid">If not specified, returns account balance of current logged in user</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<HuobiMarginAccountBalance>> GetCrossMarginAccountBalance(long? subUid = null, CancellationToken ct = default);
+
+        /// <summary>
         /// Get candlestick data for a symbol
         /// </summary>
         /// <param name="symbol">The symbol to get the data for</param>
