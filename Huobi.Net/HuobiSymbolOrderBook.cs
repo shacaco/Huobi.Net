@@ -20,7 +20,8 @@ namespace Huobi.Net
         private bool _socketOwner;
         private static readonly HashSet<string> _supportedRealtimeSymbols = new HashSet<string>
         {
-            "btcusdt", "ethusdt", "xrpusdt", "eosusdt", "ltcusdt", "etcusdt", "adausdt", "dashusdt", "bsvusdt"
+            "btcusdt", "ethusdt", "xrpusdt", "eosusdt", "adausdt", "dashusdt", "bsvusdt","dotusdt",
+            "linkusdt","trxusdt","nftusdt","maticusdt","ltcusdt","dfausdt","etcusdt","xmrusdt","uniusdt","vetusdt"
         };
 
         /// <summary>
