@@ -85,6 +85,17 @@ namespace Huobi.Net.Interfaces
         Task<WebCallResult<object>> RepayCrossAccountLoan(string orderId, decimal quantity, CancellationToken ct = default);
 
         /// <summary>
+        /// Repay a margin account loan
+        /// </summary>
+        /// <param name="accountId">account id</param>
+        /// <param name="currency">currency to repay</param>
+        /// <param name="amount">quantity to repay</param>
+        /// <param name="transactId">loan id</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<HuobiMarginLoanRepay>>> RepayMarginLoan(string accountId, string currency, decimal amount, string? transactId = null, CancellationToken ct = default);
+        
+        /// <summary>
         /// Get cross account loan interest rates
         /// </summary>
         /// <param name="ct">Cancellation token</param>

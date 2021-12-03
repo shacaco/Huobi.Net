@@ -1429,6 +1429,16 @@
             Balance items
             </summary>
         </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarginLoanRepay.RepayId">
+            <summary>
+            RepayId
+            </summary>
+        </member>
+        <member name="P:Huobi.Net.Objects.HuobiMarginLoanRepay.RepayTime">
+            <summary>
+            RepayTime
+            </summary>
+        </member>
         <member name="T:Huobi.Net.Objects.HuobiMarketStatus">
             <summary>
             Status of the market
@@ -3143,6 +3153,17 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
+        <member name="M:Huobi.Net.HuobiClient.RepayMarginLoan(System.String,System.String,System.Decimal,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Repay a margin account loan
+            </summary>
+            <param name="accountId">account id</param>
+            <param name="currency">currency to repay</param>
+            <param name="amount">quantity to repay</param>
+            <param name="transactId">loan id</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
         <member name="M:Huobi.Net.HuobiClient.GetCrossMarginAccountBalance(System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             Get cross margin account balance
@@ -3783,6 +3804,17 @@
             </summary>
             <param name="orderId">loan id</param>
             <param name="quantity">quantity to repay</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Huobi.Net.Interfaces.IHuobiClient.RepayMarginLoan(System.String,System.String,System.Decimal,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Repay a margin account loan
+            </summary>
+            <param name="accountId">account id</param>
+            <param name="currency">currency to repay</param>
+            <param name="amount">quantity to repay</param>
+            <param name="transactId">loan id</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>

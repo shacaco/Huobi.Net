@@ -76,6 +76,7 @@ namespace Huobi.Net
         private const string PlaceWithdrawEndpoint = "dw/withdraw/api/create";
         private const string QueryWithdrawDepositEndpoint = "query/deposit-withdraw";
         private const string QueryWithdrawQuotaEndpoint = "account/withdraw/quota";
+        private const string RepayMarginLoanEndpoint = "account/repayment";
 
         private const string TransferAssetFromCrossMarginToSpotEndpoint = "cross-margin/transfer-out";
         private const string TransferAssetFromSpotToCrossMarginEndpoint = "cross-margin/transfer-in";
@@ -639,7 +640,31 @@ namespace Huobi.Net
         /// <returns></returns>
         public async Task<WebCallResult<IEnumerable<HuobiLoanOrder>>> GetCrossAccountPastLoans(CancellationToken ct = default) 
         {
-            return await SendHuobiRequest<IEnumerable<HuobiLoanOrder>>(GetUrl(PastLoansCrossMarginEndpoint, "1"), HttpMethod.Get, ct, null, true).ConfigureAwait(false);
+            var parameters = new Dictionary<string, object>();
+            parameters.AddOptionalParameter("size", 100);
+            return await SendHuobiRequest<IEnumerable<HuobiLoanOrder>>(GetUrl(PastLoansCrossMarginEndpoint, "1"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Repay a margin account loan
+        /// </summary>
+        /// <param name="accountId">account id</param>
+        /// <param name="currency">currency to repay</param>
+        /// <param name="amount">quantity to repay</param>
+        /// <param name="transactId">loan id</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        public async Task<WebCallResult<IEnumerable<HuobiMarginLoanRepay>>> RepayMarginLoan(string accountId, string currency, decimal amount, string? transactId = null, CancellationToken ct = default)
+        {
+            var parameters = new Dictionary<string, object>
+            {
+                { "accountId", accountId },
+                { "currency", currency },
+                { "amount", amount },
+            };
+            parameters.AddOptionalParameter("transactId", transactId);
+
+            return await SendHuobiV2Request<IEnumerable<HuobiMarginLoanRepay>>(GetUrl(RepayMarginLoanEndpoint, "2"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1152,19 +1177,22 @@ namespace Huobi.Net
         /// <inheritdoc />
         protected override Task<ServerError?> TryParseErrorAsync(JToken data)
         {
-            if (data["err-code"] == null && data["err-msg"] == null)
+            if (data["err-code"] == null && data["err-msg"] == null && data["err_code"] == null && data["err_msg"] == null)
                 return Task.FromResult<ServerError?>(null);
-
-            return Task.FromResult<ServerError?>(new ServerError($"{(string)data["err-code"]!}, {(string)data["err-msg"]!}"));
+            var code = data["err-code"] ?? data["err_code"];
+            var msg = data["err-msg"] ?? data["err_msg"];
+            return Task.FromResult<ServerError?>(new ServerError($"{(string)code!}, {(string)msg!}"));
         }
 
         /// <inheritdoc />
         protected override Error ParseErrorResponse(JToken error)
         {
-            if (error["err-code"] == null || error["err-msg"] == null)
+            if (error["err-code"] == null || error["err-msg"] == null && (error["err_code"] == null || error["err_msg"] == null))
                 return new ServerError(error.ToString());
 
-            return new ServerError($"{(string)error["err-code"]!}, {(string)error["err-msg"]!}");
+            var code = error["err-code"] ?? error["err_code"];
+            var msg = error["err-msg"] ?? error["err_msg"];
+            return new ServerError($"{(string)code!}, {(string)msg!}");
         }
 
         /// <summary>
